@@ -36,7 +36,7 @@ describe Oystercard do
     let(:station) { double :station }
 
     it 'changes in_journey? return value from false to true' do
-      subject.top_up(5)
+      subject.top_up(1)
       subject.touch_in(station)
       expect(subject.in_journey?).to eq(true)
     end
@@ -56,29 +56,36 @@ describe Oystercard do
     let(:exit_station) { double :exit_station }
 
     it 'changes in_journey? return value from true to false' do
-      subject.top_up(5)
+      subject.top_up(1)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.in_journey?).to eq(false)
     end
 
     it 'charges the Oystercard by minimum fare' do
-      subject.top_up(20)
+      subject.top_up(1)
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
 
     it 'changes entry_station instance variable to nil' do
-      subject.top_up(20)
+      subject.top_up(1)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.entry_station).to be_nil
     end
 
     it 'adds a journey to journeys' do
-      subject.top_up(3)
+      subject.top_up(1)
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.journeys.length }.by(1)
+    end
+
+    it 'adds a journey to journeys in the form of a Hash' do
+      subject.top_up(1)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys[0]).to be_instance_of(Hash)
     end
   end
 
