@@ -176,7 +176,7 @@
           1,
           1,
           1,
-          0,
+          1,
           null,
           null,
           null
@@ -185,11 +185,17 @@
       "/Users/malachispencer/coding/makers/oystercard/lib/station.rb": {
         "lines": [
           1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1604355721
+    "timestamp": 1604356008
   }
 }
