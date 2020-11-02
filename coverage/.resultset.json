@@ -167,8 +167,29 @@
           null,
           null
         ]
+      },
+      "/Users/malachispencer/coding/makers/oystercard/spec/station_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/malachispencer/coding/makers/oystercard/lib/station.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1604355131
+    "timestamp": 1604355721
   }
 }
