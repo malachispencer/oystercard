@@ -38,6 +38,12 @@ describe Oystercard do
     it 'raises an exception if balance is below 1' do
       expect { subject.touch_in }.to raise_error('Insufficient funds')
     end
+
+    let(:station) { double :station }
+    it 'adds the station to an instance variable entry_station' do
+      subject.top_up(20)
+      expect { subject.touch_in(station) }.to change { subject.entry_station }.from(nil).to(station)
+    end
   end
 
   context '#touch_out' do
