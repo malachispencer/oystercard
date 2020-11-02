@@ -52,26 +52,33 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-    let(:station) { double :station }
+    let(:entry_station) { double :entry_station }
+    let(:exit_station) { double :exit_station }
 
     it 'changes in_journey? return value from true to false' do
       subject.top_up(5)
-      subject.touch_in(station)
-      subject.touch_out
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject.in_journey?).to eq(false)
     end
 
     it 'charges the Oystercard by minimum fare' do
       subject.top_up(20)
-      subject.touch_in(station)
-      expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
+      subject.touch_in(entry_station)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
 
     it 'changes entry_station instance variable to nil' do
       subject.top_up(20)
-      subject.touch_in(station)
-      subject.touch_out
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject.entry_station).to be_nil
+    end
+
+    it 'adds a journey to journeys' do
+      subject.top_up(3)
+      subject.touch_in(entry_station)
+      expect { subject.touch_out(exit_station) }.to change { subject.journeys.length }.by(1)
     end
   end
 
