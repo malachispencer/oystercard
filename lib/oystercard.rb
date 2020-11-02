@@ -7,7 +7,6 @@ class Oystercard
 
   def initialize
     @balance = DEFAULT_BALANCE
-    @in_journey = false
   end
 
   def top_up(value)
@@ -16,7 +15,7 @@ class Oystercard
   end
 
   def in_journey?
-    @in_journey
+    !@entry_station.nil?
   end
 
   def touch_in(station)

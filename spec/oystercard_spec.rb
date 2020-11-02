@@ -31,7 +31,7 @@ describe Oystercard do
   context '#touch_in' do
     let(:station) { double :station }
 
-    it 'changes in_journey instance variable from false to true' do
+    it 'changes in_journey? return value from false to true' do
       subject.top_up(5)
       subject.touch_in(station)
       expect(subject.in_journey?).to eq(true)
@@ -50,7 +50,7 @@ describe Oystercard do
   context '#touch_out' do
     let(:station) { double :station }
 
-    it 'changes in_journey instance variable from true to false' do
+    it 'changes in_journey? return value from true to false' do
       subject.top_up(5)
       subject.touch_in(station)
       subject.touch_out
