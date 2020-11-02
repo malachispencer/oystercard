@@ -29,17 +29,18 @@ describe Oystercard do
   end
 
   context '#touch_in' do
-    xit 'changes in_journey instance variable from false to true' do
+    let(:station) { double :station }
+    
+    it 'changes in_journey instance variable from false to true' do
       subject.top_up(5)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject.in_journey?).to eq(true)
     end
 
-    xit 'raises an exception if balance is below 1' do
-      expect { subject.touch_in }.to raise_error('Insufficient funds')
+    it 'raises an exception if balance is below 1' do
+      expect { subject.touch_in(station) }.to raise_error('Insufficient funds')
     end
 
-    let(:station) { double :station }
     it 'adds the station to an instance variable entry_station' do
       subject.top_up(20)
       expect { subject.touch_in(station) }.to change { subject.entry_station }.from(nil).to(station)
@@ -47,16 +48,18 @@ describe Oystercard do
   end
 
   context '#touch_out' do
-    xit 'changes in_journey instance variable from true to false' do
+    let(:station) { double :station }
+
+    it 'changes in_journey instance variable from true to false' do
       subject.top_up(5)
-      subject.touch_in
+      subject.touch_in(station)
       subject.touch_out
       expect(subject.in_journey?).to eq(false)
     end
 
-    xit 'charges the Oystercard by minimum fare' do
+    it 'charges the Oystercard by minimum fare' do
       subject.top_up(20)
-      subject.touch_in
+      subject.touch_in(station)
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
   end
