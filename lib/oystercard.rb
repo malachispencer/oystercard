@@ -1,5 +1,4 @@
 class Oystercard
-  attr_reader :balance, :entry_station, :journeys
 
   DEFAULT_BALANCE = 0
   MAX_BALANCE = 90
@@ -10,13 +9,21 @@ class Oystercard
     @journeys = []
   end
 
+  def balance
+    @balance
+  end
+
+  def entry_station
+    @entry_station
+  end
+
+  def journeys
+    @journeys
+  end
+
   def top_up(value)
     raise 'Balance cannot be above 90' if exceeds_limit?(value)
     @balance += value
-  end
-
-  def in_journey?
-    !@entry_station.nil?
   end
 
   def touch_in(station)
@@ -28,6 +35,10 @@ class Oystercard
     deduct
     add_journey(station)
     @entry_station = nil
+  end
+
+  def in_journey?
+    !@entry_station.nil?
   end
 
   private
