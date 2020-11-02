@@ -53,8 +53,13 @@ describe Oystercard do
       end
 
       it 'changes in_journey instance variable from false to true' do
+        subject.top_up(5)
         subject.touch_in
         expect(subject.in_journey?).to eq(true)
+      end
+
+      it 'raises an exception if balance is below 1' do
+        expect { subject.touch_in }.to raise_error(Exception, 'Insufficient funds')
       end
     end
 
@@ -64,6 +69,7 @@ describe Oystercard do
       end
 
       it 'changes in_journey instance variable from true to false' do
+        subject.top_up(5)
         subject.touch_in
         subject.touch_out
         expect(subject.in_journey?).to eq(false)
