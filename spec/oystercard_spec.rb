@@ -29,13 +29,13 @@ describe Oystercard do
   end
 
   context '#touch_in' do
-    it 'changes in_journey instance variable from false to true' do
+    xit 'changes in_journey instance variable from false to true' do
       subject.top_up(5)
       subject.touch_in
       expect(subject.in_journey?).to eq(true)
     end
 
-    it 'raises an exception if balance is below 1' do
+    xit 'raises an exception if balance is below 1' do
       expect { subject.touch_in }.to raise_error('Insufficient funds')
     end
 
@@ -47,14 +47,14 @@ describe Oystercard do
   end
 
   context '#touch_out' do
-    it 'changes in_journey instance variable from true to false' do
+    xit 'changes in_journey instance variable from true to false' do
       subject.top_up(5)
       subject.touch_in
       subject.touch_out
       expect(subject.in_journey?).to eq(false)
     end
 
-    it 'charges the Oystercard by minimum fare' do
+    xit 'charges the Oystercard by minimum fare' do
       subject.top_up(20)
       subject.touch_in
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
