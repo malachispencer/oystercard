@@ -26,5 +26,15 @@ describe Oystercard do
       subject.top_up(Oystercard::MAX_BALANCE)
       expect { subject.top_up(1) }.to raise_error(Exception, 'Balance cannot be above 90')
     end
+
+    context '#deduct' do
+      it 'can be called on an Oystercard instance' do
+        expect(subject).to respond_to(:deduct).with(1).argument
+      end
+
+      it 'deducts a fare from an Oystercard instance' do
+        expect { subject.deduct(1) }.to change { subject.balance }.by(-1)
+      end
+    end
   end
 end
