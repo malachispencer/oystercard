@@ -63,10 +63,11 @@ describe Oystercard do
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
 
-    it 'changes entry_station variable to nil' do
+    it 'changes entry_station instance variable to nil' do
       subject.top_up(20)
       subject.touch_in(station)
-      expect { subject.touch_out }.to change { subject.entry_station }.from(station).to(nil)
+      subject.touch_out
+      expect(subject.entry_station).to be_nil
     end
   end
 
