@@ -11,7 +11,7 @@ class Oystercard
   end
 
   def top_up(value)
-    raise Exception.new 'Balance cannot be above 90' if exceeds_limit?
+    raise 'Balance cannot be above 90' if exceeds_limit?(value)
     @balance += value
   end
 
@@ -20,7 +20,7 @@ class Oystercard
   end
 
   def touch_in
-    raise Exception.new 'Insufficient funds' if insufficient_funds?
+    raise 'Insufficient funds' if insufficient_funds?
     @in_journey = true
   end
 
@@ -31,8 +31,8 @@ class Oystercard
 
   private
 
-  def exceeds_limit?
-    @balance >= MAX_BALANCE
+  def exceeds_limit?(value)
+    @balance + value > MAX_BALANCE
   end
 
   def insufficient_funds?
