@@ -1,13 +1,13 @@
 require 'oystercard'
 
 describe Oystercard do
-  context '#initialize' do
+  describe '#initialize' do
     it 'sets a default balance of 0 to our card' do
       expect(subject.balance).to eq(0)
     end
   end
 
-  context '#top_up' do
+  describe '#top_up' do
     it "can be called on an Oystcard instance" do
       expect(subject).to respond_to(:top_up).with(1).argument
     end
@@ -22,13 +22,13 @@ describe Oystercard do
     end
   end
 
-  context '#in_journey?' do
+  describe '#in_journey?' do
     it 'returns a boolean value' do
       expect(subject.in_journey?).to eq(false).or eq(true)
     end
   end
 
-  context '#touch_in' do
+  describe '#touch_in' do
     let(:station) { double :station }
 
     it 'changes in_journey? return value from false to true' do
@@ -47,7 +47,7 @@ describe Oystercard do
     end
   end
 
-  context '#touch_out' do
+  describe '#touch_out' do
     let(:station) { double :station }
 
     it 'changes in_journey? return value from true to false' do
@@ -71,7 +71,7 @@ describe Oystercard do
     end
   end
 
-  context '#deduct' do
+  describe '#deduct' do
     it 'deducts a fare from an Oystercard instance' do
       subject.top_up(20)
       expect(subject.send(:deduct)).to eq(19)
