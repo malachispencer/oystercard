@@ -30,7 +30,7 @@ describe Oystercard do
 
   context '#touch_in' do
     let(:station) { double :station }
-    
+
     it 'changes in_journey instance variable from false to true' do
       subject.top_up(5)
       subject.touch_in(station)
@@ -61,6 +61,12 @@ describe Oystercard do
       subject.top_up(20)
       subject.touch_in(station)
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
+    end
+
+    it 'changes entry_station variable to nil' do
+      subject.top_up(20)
+      subject.touch_in(station)
+      expect { subject.touch_out }.to change { subject.entry_station }.from(station).to(nil)
     end
   end
 
