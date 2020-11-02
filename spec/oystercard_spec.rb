@@ -5,6 +5,10 @@ describe Oystercard do
     it 'sets a default balance of 0 to our card' do
       expect(subject.balance).to eq(0)
     end
+
+    it 'has an empty list of journeys by default' do
+      expect(subject.journeys).to be_empty
+    end
   end
 
   describe '#top_up' do
