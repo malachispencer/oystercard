@@ -26,7 +26,7 @@ class Oystercard
 
   def touch_out(station)
     deduct
-    @journeys << { :@entry_station => :station }
+    add_journey(station)
     @entry_station = nil
   end
 
@@ -42,5 +42,9 @@ class Oystercard
 
   def deduct
     @balance -= MINIMUM_FARE
+  end
+
+  def add_journey(exit_station)
+    @journeys << { :@entry_station => :exit_station }
   end
 end
