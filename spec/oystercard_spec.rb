@@ -26,60 +26,57 @@ describe Oystercard do
       subject.top_up(Oystercard::MAX_BALANCE)
       expect { subject.top_up(1) }.to raise_error(Exception, 'Balance cannot be above 90')
     end
+  end
 
-    context '#deduct' do
-      it 'can be called on an Oystercard instance' do
-        expect(subject).to respond_to(:deduct).with(1).argument
-      end
+  context '#deduct' do
+    it 'deducts a fare from an Oystercard instance' do
+      subject.top_up(5)
+      expect(subject.send(:deduct)).to eq(4)
+    end
+  end
 
-      it 'deducts a fare from an Oystercard instance' do
-        expect { subject.deduct(1) }.to change { subject.balance }.by(-1)
-      end
+  context '#in_journey?' do
+    it 'can be called on an Oystercard instance' do
+      expect(subject).to respond_to(:in_journey?)
     end
 
-    context '#in_journey?' do
-      it 'can be called on an Oystercard instance' do
-        expect(subject).to respond_to(:in_journey?)
-      end
+    it 'returns a boolean value' do
+      expect(subject.in_journey?).to eq(false).or eq(true)
+    end
+  end
 
-      it 'returns a boolean value' do
-        expect(subject.in_journey?).to eq(false).or eq(true)
-      end
+  context '#touch_in' do
+    it 'can be called on an Oystercard instance' do
+      expect(subject).to respond_to(:touch_in)
     end
 
-    context '#touch_in' do
-      it 'can be called on an Oystercard instance' do
-        expect(subject).to respond_to(:touch_in)
-      end
-
-      it 'changes in_journey instance variable from false to true' do
-        subject.top_up(5)
-        subject.touch_in
-        expect(subject.in_journey?).to eq(true)
-      end
-
-      it 'raises an exception if balance is below 1' do
-        expect { subject.touch_in }.to raise_error(Exception, 'Insufficient funds')
-      end
+    it 'changes in_journey instance variable from false to true' do
+      subject.top_up(5)
+      subject.touch_in
+      expect(subject.in_journey?).to eq(true)
     end
 
-    context '#touch_out' do
-      it 'can be called on an Oystercard instance' do
-        expect(subject).to respond_to(:touch_out)
-      end
+    it 'raises an exception if balance is below 1' do
+      expect { subject.touch_in }.to raise_error(Exception, 'Insufficient funds')
+    end
+  end
 
-      it 'changes in_journey instance variable from true to false' do
-        subject.top_up(5)
-        subject.touch_in
-        subject.touch_out
-        expect(subject.in_journey?).to eq(false)
-      end
+  context '#touch_out' do
+    it 'can be called on an Oystercard instance' do
+      expect(subject).to respond_to(:touch_out)
+    end
 
-      it 'charges the Oystercard by minimum fare' do
-        subject.top_up(20)
-        subject.touch_in
-        expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
-      end
+    it 'changes in_journey instance variable from true to false' do
+      subject.top_up(5)
+      subject.touch_in
+      subject.touch_out
+      expect(subject.in_journey?).to eq(false)
+    end
+
+    it 'charges the Oystercard by minimum fare' do
+      subject.top_up(20)
+      subject.touch_in
+      expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
   end
 end
