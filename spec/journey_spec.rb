@@ -22,7 +22,7 @@ describe Journey do
     it 'adds exit station to Journey' do
       journey = Journey.new(entry_station)
       journey.add_exit_station(exit_station)
-      expect(journey.exit_station).to eq(:westminster)
+      expect(journey.exit_station.name).to eq(:westminster)
     end
   end
 end

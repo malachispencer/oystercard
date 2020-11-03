@@ -5,4 +5,8 @@ class Journey
     @entry_station = entry_station
     @exit_station = nil
   end
+
+  def add_exit_station(exit_station)
+    @exit_station = exit_station
+  end
 end
