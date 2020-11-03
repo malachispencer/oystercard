@@ -2,14 +2,12 @@ require 'station'
 
 describe Station do
   describe '#initialize' do
-    it 'makes the user name the station' do
-      station = Station.new('neasden')
-      expect(station.name).to eq('neasden')
+    it 'sets the name of a station' do
+      expect(subject.name).not_to be(nil)
     end
 
-    it 'randomly assigns zone between 1 and 4' do
-      station = Station.new('neasden')
-      expect(1..4).to include(station.zone)
+    it 'sets a valid zone, from 1 to 4' do
+      expect(Station::ZONES).to include(subject.zone)
     end
   end
 end
