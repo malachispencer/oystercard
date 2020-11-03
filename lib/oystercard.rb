@@ -46,8 +46,6 @@ class Oystercard
   end
 
   def add_journey
-    @journeys << { 
-      @journey.entry_station => @journey.exit_station 
-    }
+    @journeys << @journey
   end
 end
