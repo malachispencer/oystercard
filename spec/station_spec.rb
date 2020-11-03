@@ -7,7 +7,7 @@ describe Station do
     end
 
     it 'sets a valid zone, from 1 to 4' do
-      expect(Station::ZONES).to include(subject.zone)
+      expect(1..4).to include(subject.zone)
     end
   end
 end

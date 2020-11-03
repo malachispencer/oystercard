@@ -15,7 +15,7 @@ module Stations
     {name: :'oxford circus', zone: 1}
   ]
 
-  def self.get_station
+  def self.get_random
     STATIONS.sample
   end
 end
