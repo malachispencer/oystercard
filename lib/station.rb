@@ -1,4 +1,4 @@
-require_relative './stations.rb'
+require_relative '../modules/stations.rb'
 include Stations
 
 class Station

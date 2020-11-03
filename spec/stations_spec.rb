@@ -1,4 +1,4 @@
-require 'stations'
+require_relative '../modules/stations.rb'
 
 describe Stations do
   describe '#get_station' do

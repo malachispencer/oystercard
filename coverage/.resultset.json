@@ -218,7 +218,7 @@
           null
         ]
       },
-      "/Users/malachispencer/coding/makers/oystercard/lib/stations.rb": {
+      "/Users/malachispencer/coding/makers/oystercard/modules/stations.rb": {
         "lines": [
           1,
           null,
@@ -257,6 +257,6 @@
         ]
       }
     },
-    "timestamp": 1604392797
+    "timestamp": 1604393204
   }
 }
