@@ -1,10 +1,14 @@
+require_relative './stations.rb'
+include Stations
+
 class Station
 
   ZONES = [1, 2, 3, 4]
 
-  def initialize(name)
-    @name = name
-    @zone = assign_zone
+  def initialize
+    @name = nil
+    @zone = nil
+    load_station
   end
 
   def name
@@ -17,7 +21,9 @@ class Station
 
   private
 
-  def assign_zone
-    ZONES.sample
+  def load_station
+    this = Stations.get_station
+    @name = this[:name]
+    @zone = this[:zone]
   end
 end
