@@ -26,28 +26,16 @@ describe Oystercard do
     end
   end
 
-  describe '#in_journey?' do
-    it 'returns a boolean value' do
-      expect(subject.in_journey?).to eq(false).or eq(true)
-    end
-  end
-
   describe '#touch_in' do
     let(:station) { double :station }
-
-    it 'changes in_journey? return value from false to true' do
-      subject.top_up(1)
-      subject.touch_in(station)
-      expect(subject.in_journey?).to eq(true)
-    end
 
     it 'raises an exception if balance is below 1' do
       expect { subject.touch_in(station) }.to raise_error('Insufficient funds')
     end
 
-    it 'adds the station to an instance variable entry_station' do
-      subject.top_up(20)
-      expect { subject.touch_in(station) }.to change { subject.entry_station }.from(nil).to(station)
+    it 'changes @current_journey from nil to Journey' do
+      subject.top_up(1)
+      expect { subject.touch_in(station) }.to change { subject.journey }
     end
   end
 
@@ -55,24 +43,10 @@ describe Oystercard do
     let(:entry_station) { double :entry_station }
     let(:exit_station) { double :exit_station }
 
-    it 'changes in_journey? return value from true to false' do
-      subject.top_up(1)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.in_journey?).to eq(false)
-    end
-
     it 'charges the Oystercard by minimum fare' do
       subject.top_up(1)
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
-    end
-
-    it 'changes entry_station instance variable to nil' do
-      subject.top_up(1)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.entry_station).to be_nil
     end
 
     it 'adds a journey to journeys' do
@@ -87,12 +61,19 @@ describe Oystercard do
       subject.touch_out(exit_station)
       expect(subject.journeys[0]).to be_instance_of(Hash)
     end
+
+    it 'changes @journey from Journey to nil' do
+      subject.top_up(1)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journey).to be_nil
+    end
   end
 
   describe '#deduct' do
     it 'deducts a fare from an Oystercard instance' do
       subject.top_up(20)
-      expect(subject.send(:deduct)).to eq(19)
+      expect(subject.send(:deduct_fare)).to eq(19)
     end
   end
 end
