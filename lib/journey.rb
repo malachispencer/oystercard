@@ -6,6 +6,12 @@ class Journey
     @exit_station = nil
   end
 
+  def finalize(exit_station)
+    add_exit_station(exit_station)
+  end
+
+  private
+
   def add_exit_station(exit_station)
     @exit_station = exit_station
   end
