@@ -24,5 +24,11 @@ describe Journey do
       journey.finalize(exit_station)
       expect(journey.exit_station.name).to eq(:westminster)
     end
+
+    it 'calculates the fare of a complete Journey' do
+      journey = Journey.new(entry_station)
+      journey.finalize(exit_station)
+      expect(journey.fare).to eq(1)
+    end
   end
 end
