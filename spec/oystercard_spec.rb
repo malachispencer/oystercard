@@ -55,13 +55,6 @@ describe Oystercard do
       expect { subject.touch_out(exit_station) }.to change { subject.journeys.length }.by(1)
     end
 
-    it 'adds a journey to journeys in the form of a Hash' do
-      subject.top_up(1)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.journeys[0]).to be_instance_of(Hash)
-    end
-
     it 'changes @journey from Journey to nil' do
       subject.top_up(1)
       subject.touch_in(entry_station)
