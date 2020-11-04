@@ -25,7 +25,7 @@ class Oystercard
   end
 
   def touch_out(station)
-    @journey.add_exit_station(station)
+    @journey.finalize(station)
     deduct_fare
     add_journey
     @journey = nil
