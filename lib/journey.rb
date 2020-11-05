@@ -19,6 +19,7 @@ class Journey
   end
 
   def card_touch_out
+    raise 'Cannot touch out without card' if not_card_action?
     @touched_out = true
   end
 
