@@ -1,5 +1,6 @@
 class Journey
-  attr_reader :entry_station, :exit_station, :touched_in, :touched_out, :fare
+  attr_reader :entry_station, :exit_station, :fare
+  attr_reader :touched_in, :touched_out, :incomplete
 
   MINIMUM_FARE = 1
   PENALTY_FARE = 6

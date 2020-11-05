@@ -56,6 +56,13 @@ describe Journey do
       expect { subject.finalize(oystercard) }.to raise_error('Journey already finalized')
     end
 
+    it "sets @incomplete to false for complete journey's" do
+      allow(journey).to receive(:not_card_action?) { false }
+      journey.card_touch_in
+      journey.card_touch_out
+      expect { journey.finalize(oystercard) }.to change { journey.incomplete }.from(true).to(false)
+    end
+
     it 'calculates the fare of a complete Journey' do
       allow(journey).to receive(:not_card_action?) { false }
       journey.card_touch_in
@@ -67,6 +74,10 @@ describe Journey do
       allow(journey).to receive(:not_card_action?) { false }
       journey.card_touch_in
       expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(6)
+    end
+
+    it 'lets user know journey is complete' do
+      expect { journey.finalize(oystercard) }.to output('Journey from neasden to westminster complete.').to_stdout
     end
   end
 end
