@@ -9,7 +9,8 @@ class Journey
     @exit_station = exit_station
     @touched_in = false
     @touched_out = false
-    @complete = false
+    @incomplete = true
+    @finalized = false
   end
 
   def touch_in
@@ -21,10 +22,12 @@ class Journey
   end
 
   def finalize(oystercard)
+    raise 'Journey already finalized' if finalized?
     return_fare
     oystercard.deduct_fare(@fare)
     print_complete
     set_complete
+    set_finalized
     oystercard.log(self)
   end
 
@@ -43,6 +46,14 @@ class Journey
   end
 
   def set_complete
-    @complete = true
+    @incomplete = !@touched_in || !@touched_out
+  end
+
+  def set_finalized
+    @finalized = true
+  end
+
+  def finalized?
+    @finalized == true
   end
 end
