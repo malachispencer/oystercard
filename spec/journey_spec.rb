@@ -61,6 +61,12 @@ describe Journey do
       journey.card_touch_in
       journey.card_touch_out
       expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(3)
-    end 
+    end
+
+    it 'calculates the fare of an incomplete Journey' do
+      allow(journey).to receive(:not_card_action?) { false }
+      journey.card_touch_in
+      expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(6)
+    end
   end
 end

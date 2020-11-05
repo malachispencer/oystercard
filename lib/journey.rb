@@ -25,10 +25,10 @@ class Journey
 
   def finalize(oystercard)
     raise 'Journey already finalized' if finalized?
+    set_complete
     return_fare
     oystercard.deduct_fare(@fare)
     print_complete
-    set_complete
     set_finalized
     oystercard.log(self)
   end
@@ -40,11 +40,9 @@ class Journey
   end
 
   def return_fare
-    if !@touched_in || !@touched_out
-      @fare = PENALTY_FARE
-    else 
-      @fare = MINIMUM_FARE + (@entry_station.zone - @exit_station.zone).abs
-    end
+    @fare = @incomplete ? 
+      PENALTY_FARE : 
+        MINIMUM_FARE + (@entry_station.zone - @exit_station.zone).abs
   end
 
   def print_complete
