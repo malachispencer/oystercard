@@ -39,9 +39,20 @@ describe Journey do
       expect { subject.card_touch_out }.to raise_error('Cannot touch out without card')
     end
 
-    it 'changes @touch_out from false to true' do
+    it 'changes @touched_out from false to true' do
       allow(subject).to receive(:not_card_action?) { false }
       expect { subject.card_touch_out }.to change { subject.touched_out }.from(false).to(true)
+    end
+  end
+
+  describe '#finalize' do
+    let(:oystercard) { double :oystercard }
+
+    it 'raises an error if the Journey is already finalized' do
+      allow(oystercard).to receive(:deduct_fare)
+      allow(oystercard).to receive(:log)
+      subject.finalize(oystercard)
+      expect { subject.finalize(oystercard) }.to raise_error('Journey already finalized')
     end
   end
 end
