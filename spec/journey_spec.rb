@@ -33,4 +33,10 @@ describe Journey do
       expect { subject.card_touch_in }.to change { subject.touched_in }.from(false).to(true)
     end
   end
+
+  describe '#card_touch_out' do
+    it 'raises an error unless invoked from Oystercard' do
+      expect { subject.card_touch_out }.to raise_error('Cannot touch out without card')
+    end
+  end
 end
