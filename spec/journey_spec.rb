@@ -23,9 +23,9 @@ describe Journey do
     end
   end
 
-  describe '#touch_in' do
+  describe '#card_touched_in' do
     it 'raises an erroe unless invoked from Oystercard' do
-      expect { subject.touch_in }.to raise_error('Cannot touch in without card')
+      expect { subject.card_touch_in }.to raise_error('Cannot touch in without card')
     end
   end
 end

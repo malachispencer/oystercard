@@ -1,5 +1,5 @@
 class Journey
-  attr_reader :touched_in, :touched_out
+  attr_reader :entry_station, :exit_station, :touched_in, :touched_out
 
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
@@ -13,11 +13,12 @@ class Journey
     @finalized = false
   end
 
-  def touch_in
+  def card_touch_in
+    raise 'Cannot touch in without card' if not_card_action?
     @touched_in = true
   end
 
-  def touch_out
+  def card_touch_out
     @touched_out = true
   end
 
@@ -32,6 +33,10 @@ class Journey
   end
 
   private
+
+  def not_card_action?
+    !%w[touch_in touch_out].include? caller[0][/`.*'/][1..-2]
+  end
 
   def return_fare
     if !@touched_in || !@touched_out
