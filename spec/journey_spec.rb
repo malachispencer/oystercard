@@ -2,15 +2,24 @@ require 'journey'
 
 describe Journey do
   describe '#initialize' do
-    let(:station) { double :station }
+    let(:entry_station) { double :entry_station }
+    let(:exit_station) { double :entry_station }
+    let(:journey) { Journey.new(entry_station, exit_station) }
 
-    it 'by default sets entry_station to nil' do
-      expect(subject.entry_station).to be_nil
+    it 'allows the user to enter an entry station' do
+      expect(journey.entry_station).to eq(entry_station)
     end
 
-    it 'allows a station to be passed in' do
-      journey = Journey.new(station)
-      expect(journey.entry_station).to eq(station)
+    it 'allows the user to enter an exit station' do
+      expect(journey.exit_station).to eq(exit_station)
+    end
+
+    it 'initially has touched_in set to false' do
+      expect(subject.touched_in).to eq(false)
+    end
+
+    it 'initially has touch_out set to false' do
+      expect(subject.touched_out).to be_instance_of(FalseClass)
     end
   end
 end
