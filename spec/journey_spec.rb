@@ -22,4 +22,10 @@ describe Journey do
       expect(subject.touched_out).to be_instance_of(FalseClass)
     end
   end
+
+  describe '#touch_in' do
+    it 'raises an erroe unless invoked from Oystercard' do
+      expect { subject.touch_in }.to raise_error('Cannot touch in without card')
+    end
+  end
 end
