@@ -21,11 +21,11 @@ class Oystercard
 
   def touch_in(journey)
     raise 'Insufficient funds' if insufficient_funds?
-    journey.touch_in
+    journey.card_touch_in
   end
 
   def touch_out(journey)
-    journey.touch_out
+    journey.card_touch_out
   end
 
   def deduct_fare(fare)
