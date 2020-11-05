@@ -46,13 +46,21 @@ describe Journey do
   end
 
   describe '#finalize' do
-    let(:oystercard) { double :oystercard }
+    let(:oystercard) { double('oystercard', deduct_fare: nil, log: nil) }
+    let(:entry_station) { double('entry_station', name: :neasden, zone: 3) }
+    let(:exit_station) { double('exit_station', name: :westminster, zone: 1) }
+    let(:journey) { Journey.new(entry_station, exit_station) }
 
     it 'raises an error if the Journey is already finalized' do
-      allow(oystercard).to receive(:deduct_fare)
-      allow(oystercard).to receive(:log)
       subject.finalize(oystercard)
       expect { subject.finalize(oystercard) }.to raise_error('Journey already finalized')
     end
+
+    it 'calculates the fare of a complete Journey' do
+      allow(journey).to receive(:not_card_action?) { false }
+      journey.card_touch_in
+      journey.card_touch_out
+      expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(3)
+    end 
   end
 end
