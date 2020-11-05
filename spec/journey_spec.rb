@@ -23,9 +23,14 @@ describe Journey do
     end
   end
 
-  describe '#card_touched_in' do
-    it 'raises an erroe unless invoked from Oystercard' do
+  describe '#card_touch_in' do
+    it 'raises an error unless invoked from Oystercard' do
       expect { subject.card_touch_in }.to raise_error('Cannot touch in without card')
+    end
+
+    it 'changes @touched_in from false to true' do
+      allow(subject).to receive(:not_card_action?) { false }
+      expect { subject.card_touch_in }.to change { subject.touched_in }.from(false).to(true)
     end
   end
 end
