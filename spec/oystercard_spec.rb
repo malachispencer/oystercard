@@ -24,8 +24,15 @@ describe Oystercard do
 
   describe '#touch_in' do
     let(:journey) { double :journey }
+
     it 'raises an exception if balance is below minimum fare' do
       expect { subject.touch_in(journey) }.to raise_error('Insufficient funds')
+    end
+
+    it 'calls card_touch_in method on the journey passed in' do
+      subject.top_up(1)
+      allow(journey).to receive(:card_touch_in) { 'touched in' }
+      expect(subject.touch_in(journey)).to eq('touched in')
     end
   end
 
