@@ -14,9 +14,10 @@ irb -r ./lib/oystercard.rb
 
 1) Create an Oystercard.
 
-2) Top_up Oystercard.
+2) Top up Oystercard.
 
-3) Create a Journey, entry and exit stations are randomly generated Station objects with a Station name and Station zone.
+3) Create a Journey. Entry and exit stations are randomly generated Station objects with name and zone by default, or user can 
+   create their own custom Stations with name and zone, then enter these for their Journey entry and exit stations.
 
 4) Touch in for Journey, touch out for Journey.
 
