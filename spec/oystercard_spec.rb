@@ -72,4 +72,17 @@ describe Oystercard do
       expect(subject.history.first).to eq(journey)
     end
   end
+
+  describe '#history' do
+    let(:journey) { double :journey }
+
+    it 'returns the JourneyLog array' do
+      allow(subject).to receive(:journey_action?) { true }
+      3.times { subject.log(journey) }
+
+      subject.history.each do |j|
+        expect(j).to eq(journey)
+      end
+    end
+  end
 end
