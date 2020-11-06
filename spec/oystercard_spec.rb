@@ -47,7 +47,7 @@ describe Oystercard do
   end
 
   describe '#deduct_fare' do
-    it 'raises error unless invoked from Journey class' do
+    it 'raises an error unless invoked from Journey finalize method' do
       subject.top_up(6)
       expect { subject.deduct_fare(1) }.to raise_error('Card can only be charged for Journey')
     end
@@ -56,6 +56,14 @@ describe Oystercard do
       subject.top_up(6)
       allow(subject).to receive(:journey_action?) { true }
       expect { subject.deduct_fare(6) }.to change { subject.balance }.by(-6)
+    end
+  end
+
+  describe '#log' do
+    let(:journey) { double :journey }
+
+    it 'raises an error unless invoked from Journey class' do
+      expect { subject.log(journey) }.to raise_error('Cannot manually add Journey')
     end
   end
 end

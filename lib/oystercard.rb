@@ -34,6 +34,7 @@ class Oystercard
   end
 
   def log(journey)
+    raise 'Cannot manually add Journey' if !journey_action?
     @journey_log.add(journey)
   end
 
