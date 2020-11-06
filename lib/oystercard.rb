@@ -29,6 +29,7 @@ class Oystercard
   end
 
   def deduct_fare(fare)
+    raise 'Card can only be charged for Journey' if !journey_action?
     @balance -= fare
   end
 
@@ -48,5 +49,9 @@ class Oystercard
 
   def insufficient_funds?
     @balance < MINIMUM_FARE
+  end
+
+  def journey_action?
+    caller[1][/`.*'/][1..-2] == 'finalize'
   end
 end

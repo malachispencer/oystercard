@@ -47,8 +47,14 @@ describe Oystercard do
   end
 
   describe '#deduct_fare' do
+    it 'raises error unless invoked from Journey class' do
+      subject.top_up(6)
+      expect { subject.deduct_fare(1) }.to raise_error('Card can only be charged for Journey')
+    end
+
     it 'reduces balance by amount/fare passed into it' do
       subject.top_up(6)
+      allow(subject).to receive(:journey_action?) { true }
       expect { subject.deduct_fare(6) }.to change { subject.balance }.by(-6)
     end
   end
