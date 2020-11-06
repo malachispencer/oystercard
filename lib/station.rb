@@ -2,14 +2,14 @@ require_relative '../modules/stations.rb'
 include Stations
 
 class Station
-  def initialize
-    @name = nil
-    @zone = nil
-    load_station
+  def initialize(name = nil, zone = nil)
+    @name = name
+    @zone = zone
+    load_station if uninitialized?
   end
 
   def name
-    @name
+    @name.to_sym
   end
 
   def zone
@@ -17,6 +17,10 @@ class Station
   end
 
   private
+
+  def uninitialized?
+    [@name, @zone].any?(&:nil?)
+  end
 
   def load_station
     this = Stations.get_random
