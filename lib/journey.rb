@@ -15,12 +15,12 @@ class Journey
   end
 
   def card_touch_in
-    raise 'Cannot touch in without card' if not_card_action?
+    raise 'Cannot touch in without card' if !card_action?
     @touched_in = true
   end
 
   def card_touch_out
-    raise 'Cannot touch out without card' if not_card_action?
+    raise 'Cannot touch out without card' if !card_action?
     @touched_out = true
   end
 
@@ -36,8 +36,8 @@ class Journey
 
   private
 
-  def not_card_action?
-    !%w[touch_in touch_out].include? caller[0][/`.*'/][1..-2]
+  def card_action?
+    %w[touch_in touch_out].include? caller[1][/`.*'/][1..-2]
   end
 
   def return_fare

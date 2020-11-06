@@ -29,7 +29,7 @@ describe Journey do
     end
 
     it 'changes @touched_in from false to true' do
-      allow(subject).to receive(:not_card_action?) { false }
+      allow(subject).to receive(:card_action?) { true }
       expect { subject.card_touch_in }.to change { subject.touched_in }.from(false).to(true)
     end
   end
@@ -40,7 +40,7 @@ describe Journey do
     end
 
     it 'changes @touched_out from false to true' do
-      allow(subject).to receive(:not_card_action?) { false }
+      allow(subject).to receive(:card_action?) { true }
       expect { subject.card_touch_out }.to change { subject.touched_out }.from(false).to(true)
     end
   end
@@ -57,21 +57,21 @@ describe Journey do
     end
 
     it "sets @incomplete to false for complete journey's" do
-      allow(journey).to receive(:not_card_action?) { false }
+      allow(journey).to receive(:card_action?) { true }
       journey.card_touch_in
       journey.card_touch_out
       expect { journey.finalize(oystercard) }.to change { journey.incomplete }.from(true).to(false)
     end
 
     it 'calculates the fare of a complete Journey' do
-      allow(journey).to receive(:not_card_action?) { false }
+      allow(journey).to receive(:card_action?) { true }
       journey.card_touch_in
       journey.card_touch_out
       expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(3)
     end
 
     it 'calculates the fare of an incomplete Journey' do
-      allow(journey).to receive(:not_card_action?) { false }
+      allow(journey).to receive(:card_action?) { true }
       journey.card_touch_in
       expect { journey.finalize(oystercard) }.to change { journey.fare }.from(nil).to(6)
     end
