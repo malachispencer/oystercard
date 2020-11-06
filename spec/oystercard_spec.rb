@@ -29,7 +29,7 @@ describe Oystercard do
       expect { subject.touch_in(journey) }.to raise_error('Insufficient funds')
     end
 
-    it 'calls card_touch_in method on the journey passed in' do
+    it 'calls card_touch_in method on the Journey passed in' do
       subject.top_up(1)
       allow(journey).to receive(:card_touch_in) { 'touched in' }
       expect(subject.touch_in(journey)).to eq('touched in')
@@ -37,8 +37,12 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-    it 'can be called on a card with 1 argument' do
-      expect(subject).to respond_to(:touch_out).with(1).argument
+    let(:journey) { double :journey }
+
+    it 'calls card_touch_out method on the Journey passed in' do
+      subject.top_up(1)
+      allow(journey).to receive(:card_touch_out) { 'touched out' }
+      expect(subject.touch_out(journey)).to eq('touched out')
     end
   end
 
