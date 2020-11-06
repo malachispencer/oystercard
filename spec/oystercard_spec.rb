@@ -65,5 +65,11 @@ describe Oystercard do
     it 'raises an error unless invoked from Journey class' do
       expect { subject.log(journey) }.to raise_error('Cannot manually add Journey')
     end
+
+    it 'adds a Journey to the JourneyLog' do
+      allow(subject).to receive(:journey_action?) { true }
+      subject.log(journey)
+      expect(subject.history.first).to eq(journey)
+    end
   end
 end
